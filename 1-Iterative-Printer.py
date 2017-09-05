@@ -15,6 +15,17 @@
 #                           0 4 7
 #                           5 8
 
+# Explanation to my answer:
+# My approach is using a left bounded and right(upper) bounded number.
+#  upon every iteration it will lastly set the left bound where the upper right
+#  bound had left off.
+#  And to calculate the right bound I added up the numbers it was on per iteartion.
+#    For example: The first iteartion would need a rbound of 1
+#                 The second iteration would need a rbound of 3 (1 + 2)
+#                 The third iteration would need a rbound of 6 (1 + 2 + 3)
+#                 The fourth iteration would need a rbound of 10 (1+ 2 + 3 + 4)
+#                 ..etc
+
 
 def iterative_printer(l):
     """
