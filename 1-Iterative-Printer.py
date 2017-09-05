@@ -16,9 +16,11 @@
 #                           5 8
 
 # Explanation to my answer:
+#
 # My approach is using a left bounded and right(upper) bounded number.
 #  upon every iteration it will lastly set the left bound where the upper right
 #  bound had left off.
+#
 #  And to calculate the right bound I added up the numbers it was on per iteartion.
 #    For example: The first iteartion would need a rbound of 1
 #                 The second iteration would need a rbound of 3 (1 + 2)
@@ -38,11 +40,12 @@ def iterative_printer(l):
     rbound = 1
     for i in range(len(l)):
         rbound = 0
+        # Need to add 1 to account for 0 based indexes.
         for x in range(i+1):
-            rbound += x+1
+            rbound += x+1 #  This is where (1+2+3) etc math occurs.
         print(' '.join(map(str, l[lbound:rbound])))
         if rbound >= len(l):
-            break
+            break  # if we have reached the last element or beyond, we are done.
         lbound = rbound
     print('\n')
 
