@@ -9,41 +9,37 @@ import sys
 # Complete the minimumSwaps function below.
 def minimumSwaps(arr):
     swaps = [] #  List of tuples
+    ans = 0
     N = len(arr)
     i = 0
-    x = 0
-    while x < 13 and i < N-1:
-      target = arr[i] 
-      try:
-        minVal, minInd = getMin(arr[i+1:])
-        minInd += 1
-      except IndexError:
-        import pdb; pdb.set_trace()
-      print(f"target: {target} minVal: {minVal} arr: {arr}")
-      if i < minInd and target > minVal:
-        swaps.append((i, minInd))
-        arr[i], arr[minInd] = arr[minInd], arr[i]
-      else:
-        i += 1
-      x += 1
 
+    while i < N-1:
+      curr = arr[i]
+      m, index = getMinLeft(arr[i:])
+      if curr > m:
+        arr[i], arr[index+i] = arr[index+i], arr[i]
+        swaps.append((i, index+i))
+        ans += 1
+        i -= 1
+      i += 1
+    return ans
 
-    print("\n---------")
-    print(arr)
-    print(swaps)
-    return len(swaps)
-
-def getMin(arr) -> (int, int):
-  index = 0
-  value = arr[0]
+def getMinLeft(arr) -> (int, int):
+  """
+  Get integer that needs to go left, from the starting Index.
+  (int, int) : Value, Index
+  """
+  res = (arr[0], 0)
   for i in range(len(arr)):
-    if arr[i] < value:
-      value = arr[i]
-      index = i
-  return value, index
+    try:
+      if arr[i] < arr[i-1] and arr[i] < res[0]:
+        res = (arr[i], i)
+    except IndexError:
+      print("first element does not have a previous element to check")
+  return res
 
 if __name__ == '__main__':
-    # fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
 
     n = int(input())
 
@@ -52,6 +48,6 @@ if __name__ == '__main__':
     res = minimumSwaps(arr)
     print(res)
 
-    # fptr.write(str(res) + '\n')
+    fptr.write(str(res) + '\n')
 
-    # fptr.close()
+    fptr.close()
