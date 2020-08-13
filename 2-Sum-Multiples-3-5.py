@@ -8,7 +8,7 @@ def sum_multiples(threshold, *args):
     """
     sum = 0
     summed_multiples = []
-    for x in range(threshold):
+    for x in range(1, threshold, 1):
         for a in args:
             if (x%a) == 0 and x not in summed_multiples:
                 sum += x
